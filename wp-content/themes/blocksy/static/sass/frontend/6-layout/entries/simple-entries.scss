@@ -10,9 +10,9 @@
 			flex-direction: column;
 		}
 
-		> .ct-image-container {
+		> .ct-media-container {
 			@include media-breakpoint-up (md) {
-				max-width: 40%;
+				max-width: var(--card-media-max-width, 40%);
 				flex-shrink: 0;
 				margin-inline-end: 0;
 

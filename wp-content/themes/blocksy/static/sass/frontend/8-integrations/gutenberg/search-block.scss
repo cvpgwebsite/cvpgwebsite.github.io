@@ -8,8 +8,8 @@
 	&.wp-block-search__button-inside {
 
 		.wp-block-search__inside-wrapper {
-			border-radius: var(--form-field-border-radius, 3px);
-			border-color: var(--form-field-border-initial-color);
+			border-radius: var(--theme-form-field-border-radius, 3px);
+			border-color: var(--theme-form-field-border-initial-color);
 
 			.wp-block-search__input {
 				border: none;

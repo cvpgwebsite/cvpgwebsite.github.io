@@ -9,6 +9,10 @@
 			transform: translate3d(0, 0, 0);
 		}
 	}
+
+	[data-price="no"] .amount {
+		display: none;
+	}
 }
 
 // dropdown cart view
@@ -27,7 +31,10 @@
 	visibility: hidden;
 	transform: translate3d(0, 10px, 0);
 	transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
-	--content-spacing: 0;
+
+	--theme-content-spacing: 0;
+	--mini-cart-items-spacing: 15px;
+	--mini-cart-divider-color: rgba(255, 255, 255, 0.1);
 
 	&[data-count="0"] {
 		display: none;
@@ -36,14 +43,16 @@
 	.woocommerce-mini-cart {
 		max-height: 40vh;
 		overflow-y: auto;
+		margin-inline: -20px;
+		padding-inline: 20px;
 
 		li {
-			grid-column-gap: 17px;
-			padding-bottom: 15px;
-			margin-bottom: 15px;
+			grid-column-gap: 15px;
+			padding-bottom: var(--mini-cart-items-spacing);
 
 			&:not(:last-child) {
-				border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+				// margin-bottom: var(--mini-cart-items-spacing);
+				border-bottom: 1px dashed var(--mini-cart-divider-color);
 			}
 		}
 	}
@@ -52,21 +61,17 @@
 		line-height: 1.3;
 	}
 
-	.woocommerce-mini-cart__total {
-		margin-top: 0;
-		border-top-color: rgba(255, 255, 255, 0.1);
-	}
-
 	.woocommerce-mini-cart__buttons {
 		.button {
-			--buttonFontSize: 11px;
-			--buttonFontWeight: 600;
-			--button-padding: 0 10px;
-			--buttonMinHeight: 45px;
-			--buttonShadow: none;
-			--buttonTransform: none;
-			--buttonLetterSpacing: 0.05em;
-			--buttonTextTransform: uppercase;
+			--theme-button-font-size: 11px;
+			--theme-button-font-weight: 600;
+			--theme-button-letter-spacing: 0.05em;
+			--theme-button-text-transform: uppercase;
+			
+			--theme-button-padding: 0 10px;
+			--theme-button-min-height: 45px;
+			--theme-button-shadow: none;
+			--theme-button-transform: none;
 		}
 	}
 
@@ -77,11 +82,11 @@
 
 	@include media-breakpoint-up(sm) {
 		&[data-placement='left'] {
-			right: -20px;
+			inset-inline-end: -20px;
 		}
 
 		&[data-placement='right'] {
-			left: -20px;
+			inset-inline-start: -20px;
 		}
 	}
 
@@ -109,14 +114,18 @@
 
 // panel type
 #woo-cart-panel {
-	--overflow: hidden;
-	--horizontal-alignment: stretch;
+
+	.ct-panel-content-inner {
+		flex: 1;
+		--overflow: hidden;
+		--horizontal-alignment: stretch;
+	}
 
 	ul {
 		flex: 1;
 		overflow-y: auto;
 		margin: 0 calc(var(--panel-padding, 35px) * -1);
-		padding: 0 var(--panel-padding, 35px);
+		padding: 0 var(--panel-padding, 35px) var(--mini-cart-items-spacing, 20px) var(--panel-padding, 35px);
 	}
 
 	@include media-breakpoint-up(sm) {

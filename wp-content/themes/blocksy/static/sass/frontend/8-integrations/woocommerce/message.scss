@@ -5,7 +5,7 @@
 	display: flex;
 	position: relative;
 	font-size: 15px;
-	color: var(--color);
+	color: var(--theme-text-color);
 	padding: 10px;
 	min-height: 65px;
 	clear: both;
@@ -13,8 +13,7 @@
 	margin-bottom: 2rem;
 	background: var(--background-color);
 
-	--listStyleType: none;
-	--linkInitialColor: var(--color);
+	--theme-link-initial-color: var(--theme-text-color);
 
 	@include media-breakpoint-down (xs) {
 		align-items: flex-start;
@@ -36,9 +35,9 @@
 	.showlogin,
 	.restore-item {
 		order: 2;
-		--buttonFontSize: 14px;
-		--buttonMinHeight: 45px;
-		--button-padding: 5px 20px;
+		--theme-button-font-size: 14px;
+		--theme-button-min-height: 45px;
+		--theme-button-padding: 5px 20px;
 
 		@include media-breakpoint-down (xs) {
 			margin-top: 10px !important;
@@ -65,7 +64,7 @@
 
 		@include media-breakpoint-up (sm) {
 			top: 23px;
-			left: 20px;
+			inset-inline-start: 20px;
 		}
 	}
 

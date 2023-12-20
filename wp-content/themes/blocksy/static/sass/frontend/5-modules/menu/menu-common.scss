@@ -1,17 +1,17 @@
 nav[class*="menu"] {
 
 	.ct-menu-link {
-		color: var(--linkInitialColor);
-		--icon-color: var(--linkInitialColor);
+		color: var(--theme-link-initial-color);
+		--theme-icon-color: var(--theme-link-initial-color);
 	}
 
 	li:hover {
 		> .ct-menu-link,
 		> .ct-sub-menu-parent {
-			color: var(--linkHoverColor);
+			color: var(--theme-link-hover-color);
 
 			svg {
-				fill: var(--icon-hover-color, var(--linkHoverColor));
+				fill: var(--theme-icon-hover-color, var(--theme-link-hover-color));
 			}
 		}
 	}
@@ -19,10 +19,10 @@ nav[class*="menu"] {
 	li[class*="current-menu-"] {
 		> .ct-menu-link,
 		> .ct-sub-menu-parent {
-			color: var(--linkActiveColor, var(--linkHoverColor));
+			color: var(--theme-link-active-color, var(--theme-link-hover-color));
 
 			svg {
-				fill: var(--icon-active-color, var(--icon-hover-color, var(--linkActiveColor, var(--linkHoverColor))));
+				fill: var(--theme-icon-active-color, var(--theme-icon-hover-color, var(--theme-link-active-color, var(--theme-link-hover-color))));
 			}
 		}
 	}

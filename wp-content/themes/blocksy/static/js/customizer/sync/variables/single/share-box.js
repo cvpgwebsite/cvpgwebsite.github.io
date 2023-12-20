@@ -16,16 +16,16 @@ export const getSingleShareBoxVariables = () =>
 					{
 						[`${prefix}_share_box_icon_size`]: {
 							selector: applyPrefixFor('.ct-share-box', prefix),
-							variable: 'icon-size',
+							variable: 'theme-icon-size',
 							responsive: true,
-							unit: 'px',
+							unit: '',
 						},
 
 						[`${prefix}_share_box_icons_spacing`]: {
 							selector: applyPrefixFor('.ct-share-box', prefix),
-							variable: 'spacing',
+							variable: 'items-spacing',
 							responsive: true,
-							unit: 'px',
+							unit: '',
 						},
 
 						[`${prefix}_top_share_box_spacing`]: {
@@ -61,7 +61,7 @@ export const getSingleShareBoxVariables = () =>
 									'.ct-share-box[data-type="type-1"]',
 									prefix
 								),
-								variable: 'icon-color',
+								variable: 'theme-icon-color',
 								type: 'color:default',
 							},
 
@@ -70,7 +70,7 @@ export const getSingleShareBoxVariables = () =>
 									'.ct-share-box[data-type="type-1"]',
 									prefix
 								),
-								variable: 'icon-hover-color',
+								variable: 'theme-icon-hover-color',
 								type: 'color:hover',
 							},
 						],
@@ -80,7 +80,7 @@ export const getSingleShareBoxVariables = () =>
 								'.ct-share-box[data-type="type-1"]',
 								prefix
 							),
-							variable: 'border',
+							variable: 'theme-border',
 							type: 'border',
 						},
 
@@ -90,7 +90,7 @@ export const getSingleShareBoxVariables = () =>
 									'.ct-share-box[data-type="type-2"]',
 									prefix
 								),
-								variable: 'icon-color',
+								variable: 'theme-icon-color',
 								type: 'color:default',
 							},
 
@@ -99,7 +99,7 @@ export const getSingleShareBoxVariables = () =>
 									'.ct-share-box[data-type="type-2"]',
 									prefix
 								),
-								variable: 'icon-hover-color',
+								variable: 'theme-icon-hover-color',
 								type: 'color:hover',
 							},
 						],
@@ -110,53 +110,11 @@ export const getSingleShareBoxVariables = () =>
 									'.ct-share-box[data-type="type-2"]',
 									prefix
 								),
-								variable: 'text-horizontal-alignment',
-								responsive: true,
-								unit: '',
-							},
-
-							{
-								selector: applyPrefixFor(
-									'.ct-share-box[data-type="type-2"]',
-									prefix
-								),
 								variable: 'horizontal-alignment',
 								responsive: true,
 								unit: '',
-								extractValue: (value) => {
-									if (!value.desktop) {
-										return value
-									}
-
-									if (value.desktop === 'left') {
-										value.desktop = 'flex-start'
-									}
-
-									if (value.desktop === 'right') {
-										value.desktop = 'flex-end'
-									}
-
-									if (value.tablet === 'left') {
-										value.tablet = 'flex-start'
-									}
-
-									if (value.tablet === 'right') {
-										value.tablet = 'flex-end'
-									}
-
-									if (value.mobile === 'left') {
-										value.mobile = 'flex-start'
-									}
-
-									if (value.mobile === 'right') {
-										value.mobile = 'flex-end'
-									}
-
-									return value
-								},
 							},
 						],
-
 
 						[`${prefix}_share_items_background`]: [
 							{

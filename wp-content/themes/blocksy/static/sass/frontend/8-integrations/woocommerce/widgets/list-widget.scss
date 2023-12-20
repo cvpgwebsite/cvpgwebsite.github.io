@@ -1,14 +1,10 @@
 .product_list_widget {
 	li {
 		display: grid;
-		grid-template-columns: 25% 1fr;
+		grid-template-columns: 20% 1fr;
 		grid-column-gap: 20px;
 		align-items: center;
-		margin-bottom: 20px;
-	}
-
-	.ct-image-container {
-		align-self: flex-start;
+		margin-bottom: var(--mini-cart-items-spacing, 20px);
 	}
 
 	.product-data {

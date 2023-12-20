@@ -31,7 +31,7 @@ const maybeCreateMoreItemsFor = (nav, onDone) => {
 
 	moreContainer.insertAdjacentHTML(
 		'afterbegin',
-		`<a href="#" class="ct-menu-link">
+		`<a href="#" class="ct-menu-link" role="menuitem">
       ${ct_localizations.more_text}
       <span class="ct-toggle-dropdown-desktop">
         <svg class="ct-icon" width="8" height="8" viewBox="0 0 15 15">
@@ -39,8 +39,8 @@ const maybeCreateMoreItemsFor = (nav, onDone) => {
         </svg>
       </span>
     </a>
-    <button class="ct-toggle-dropdown-desktop-ghost" aria-expanded="false" aria-label="${ct_localizations.expand_submenu}"></button>
-    <ul class="sub-menu"></ul>`
+    <button class="ct-toggle-dropdown-desktop-ghost" aria-expanded="false" aria-label="${ct_localizations.expand_submenu}" role="menuitem"></button>
+    <ul class="sub-menu" role="menu"></ul>`
 	)
 
 	getNavRootEl(nav).appendChild(moreContainer)
@@ -116,6 +116,16 @@ const maybeMakeCacheForAllNavs = (nav) => {
 		nav.dataset.responsive = 'yes'
 	})
 }
+
+new ResizeObserver(() => {
+	const els = [
+		...document.querySelectorAll(
+			'header [data-device="desktop"] [data-id^="menu"][data-responsive]'
+		),
+	]
+
+	els.map((nav) => mount(nav))
+}).observe(document.body)
 
 export const mount = (nav) => {
 	if (!getNavRootEl(nav)) {

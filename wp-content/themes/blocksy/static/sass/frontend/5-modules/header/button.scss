@@ -6,24 +6,24 @@
 
 	// button size
 	[data-size="small"] {
-		--buttonMinHeight: 34px;
-		--button-padding: 3px 15px;
-		--buttonFontSize: 13px;
+		--theme-button-min-height: 34px;
+		--theme-button-padding: 3px 15px;
+		--theme-button-font-size: 13px;
 	}
 
 	[data-size="medium"] {
-		--buttonMinHeight: 42px;
-		--button-padding: 3px 20px;
+		--theme-button-min-height: 42px;
+		--theme-button-padding: 3px 20px;
 	}
 
 	[data-size="large"] {
-		--buttonMinHeight: 50px;
-		--button-padding: 3px 30px;
-		--buttonFontSize: 16px;
+		--theme-button-min-height: 50px;
+		--theme-button-padding: 3px 30px;
+		--theme-button-font-size: 16px;
 	}
 
 	// button icon
 	.ct-icon {
-		--icon-color: currentColor;
+		--theme-icon-color: currentColor;
 	}
 }

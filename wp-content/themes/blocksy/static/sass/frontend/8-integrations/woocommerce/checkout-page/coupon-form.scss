@@ -15,8 +15,8 @@
 
 	.form-row {
 		@include media-breakpoint-up (md) {
-			margin-bottom: 40px;
 			width: 49%;
+			margin-bottom: 40px;
 		}
 	}
 

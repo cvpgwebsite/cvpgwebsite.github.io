@@ -3,15 +3,31 @@ import ctEvents from 'ct-events'
 import { mount as mountMobileMenu } from './overlay/mobile-menu'
 
 import { focusLockManager } from '../helpers/focus-lock'
-
+import { whenTransitionEnds } from '../helpers/when-transition-ends'
 import { isTouchDevice } from '../helpers/is-touch-device'
 
-const showOffcanvas = (settings) => {
-	settings = {
+const persistSettings = (settings) => {
+	settings.container.__overlay_settings__ = settings
+}
+
+const getSettings = (settings) => {
+	if (!settings.container) {
+		throw new Error('No container provided')
+	}
+
+	return settings.container.__overlay_settings__ || {}
+}
+
+const clearSettings = (settings) => {
+	settings.container.__overlay_settings__ = null
+}
+
+const showOffcanvas = (initialSettings) => {
+	const settings = {
 		onClose: () => {},
 		container: null,
 		focus: true,
-		...settings,
+		...getSettings(initialSettings),
 	}
 	;[
 		...document.querySelectorAll(
@@ -128,11 +144,11 @@ const showOffcanvas = (settings) => {
 	)
 }
 
-const hideOffcanvas = (settings, args = {}) => {
-	settings = {
+const hideOffcanvas = (initialSettings, args = {}) => {
+	const settings = {
 		onClose: () => {},
 		container: null,
-		...settings,
+		...getSettings(initialSettings),
 	}
 
 	args = {
@@ -173,39 +189,36 @@ const hideOffcanvas = (settings, args = {}) => {
 
 	if (args.closeInstant) {
 		document.body.removeAttribute('data-panel')
-		ctEvents.trigger('ct:modal:closed', settings.container)
 
 		scrollLockManager().enable(
 			settings.computeScrollContainer
 				? settings.computeScrollContainer()
 				: settings.container.querySelector('.ct-panel-content')
 		)
+
+		clearSettings(settings)
+
+		ctEvents.trigger('ct:modal:closed', settings.container)
 	} else {
 		document.body.dataset.panel = `out`
 
-		settings.container.addEventListener(
-			'transitionend',
-			() => {
-				setTimeout(() => {
-					document.body.removeAttribute('data-panel')
-					ctEvents.trigger('ct:modal:closed', settings.container)
+		whenTransitionEnds(settings.container, () => {
+			document.body.removeAttribute('data-panel')
 
-					scrollLockManager().enable(
-						settings.computeScrollContainer
-							? settings.computeScrollContainer()
-							: settings.container.querySelector(
-									'.ct-panel-content'
-							  )
-					)
+			scrollLockManager().enable(
+				settings.computeScrollContainer
+					? settings.computeScrollContainer()
+					: settings.container.querySelector('.ct-panel-content')
+			)
 
-					focusLockManager().focusLockOff(
-						settings.container.querySelector('.ct-panel-content')
-							.parentNode
-					)
-				}, 300)
-			},
-			{ once: true }
-		)
+			focusLockManager().focusLockOff(
+				settings.container.querySelector('.ct-panel-content').parentNode
+			)
+
+			clearSettings(settings)
+
+			ctEvents.trigger('ct:modal:closed', settings.container)
+		})
 	}
 
 	window.removeEventListener('click', settings.handleWindowClick, {
@@ -234,19 +247,55 @@ export const handleClick = (e, settings) => {
 		computeScrollContainer: null,
 		closeWhenLinkInside: false,
 		handleContainerClick: (event) => {
+			const isPanelHeadContent = event.target.closest('.ct-panel-actions')
 			let isInsidePanelContent = event.target.closest('.ct-panel-content')
 			let isPanelContentItself =
 				[
 					...settings.container.querySelectorAll('.ct-panel-content'),
 				].indexOf(event.target) > -1
 
+			let maybeTarget = null
+
+			if (event.target.matches('[data-toggle-panel],[href*="modal"]')) {
+				maybeTarget = event.target
+			}
+
+			if (
+				!maybeTarget &&
+				event.target.closest('[data-toggle-panel],[href*="modal"]')
+			) {
+				maybeTarget = event.target.closest(
+					'[data-toggle-panel],[href*="modal"]'
+				)
+			}
+
+			// If target has the click listener, its likely that it will
+			// trigger an overlay. We should close the panel in this case.
+			if (
+				maybeTarget &&
+				maybeTarget.hasLazyLoadClickListener &&
+				// This flow is not compatible with action buttons.
+				!maybeTarget.matches('[data-button-state]')
+			) {
+				hideOffcanvas(settings)
+
+				setTimeout(() => {
+					maybeTarget.click()
+				}, 650)
+				return
+			}
+
 			if (
 				(settings.isModal &&
 					!isPanelContentItself &&
 					isInsidePanelContent) ||
 				(!settings.isModal &&
-					(isPanelContentItself || isInsidePanelContent)) ||
+					(isPanelContentItself ||
+						isInsidePanelContent ||
+						isPanelHeadContent)) ||
 				event.target.closest('[class*="select2-container"]') ||
+				// Element was clicked upon but suddenly got removed from the DOM
+				!event.target.closest('body') ||
 				!event.target.closest('.ct-panel')
 			) {
 				return
@@ -259,47 +308,29 @@ export const handleClick = (e, settings) => {
 			document.body.hasAttribute('data-panel') && hideOffcanvas(settings)
 		},
 		handleWindowClick: (e) => {
-			if (
-				settings.container.contains(e.target) ||
-				e.target === document.body ||
-				event.target.closest('[class*="select2-container"]')
-			) {
-				return
-			}
+			setTimeout(() => {
+				if (
+					settings.container.contains(e.target) ||
+					e.target === document.body ||
+					e.target.closest('[class*="select2-container"]') ||
+					!e.target.closest('body')
+				) {
+					return
+				}
 
-			if (!document.body.hasAttribute('data-panel')) {
-				return
-			}
+				if (!document.body.hasAttribute('data-panel')) {
+					return
+				}
 
-			hideOffcanvas(settings)
+				hideOffcanvas(settings)
+			})
 		},
 		...settings,
 	}
 
+	persistSettings(settings)
+
 	showOffcanvas(settings)
-
-	/*
-	if (document.body.hasAttribute('data-panel')) {
-		if (
-			settings.isModal &&
-			!settings.container.classList.contains('active')
-		) {
-			const menuToggle = document.querySelector('.ct-header-trigger')
-
-			if (menuToggle) {
-				menuToggle.click()
-			}
-
-			setTimeout(() => {
-				showOffcanvas(settings)
-			}, 600)
-		} else {
-			hideOffcanvas(settings)
-		}
-	} else {
-		showOffcanvas(settings)
-	}
-*/
 
 	if (settings.closeWhenLinkInside) {
 		if (!settings.container.hasListener) {

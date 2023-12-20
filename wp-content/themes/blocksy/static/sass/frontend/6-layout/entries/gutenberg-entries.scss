@@ -16,7 +16,7 @@
 				margin-bottom: 15px;
 			}
 
-			+ .ct-image-container {
+			+ .ct-media-container {
 				@include media-breakpoint-down (md) {
 					margin-top: 10px;
 				}
@@ -27,10 +27,10 @@
 			}
 		}
 
-		> .ct-image-container {
+		> .ct-media-container {
 			align-self: center;
-			width: var(--container-width-base);
-			max-width: calc(var(--narrow-container-max-width) + var(--wide-offset) * 2);
+			width: var(--theme-container-width-base);
+			max-width: calc(var(--theme-narrow-container-max-width) + var(--theme-wide-offset) * 2);
 
 			+ * {
 				@include media-breakpoint-down (md) {
@@ -50,7 +50,7 @@
 				content: "\00b7 \00b7 \00b7 \00b7 \00b7";
 				font-size: 25px;
 				letter-spacing: 1.5em;
-				padding-left: 1.5em;
+				padding-inline-start: 1.5em;
 				font-family: serif;
 				text-align: center;
 				opacity: 0.5;

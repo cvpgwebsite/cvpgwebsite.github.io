@@ -16,7 +16,7 @@ form.woocommerce-checkout {
 	}
 
 	h3 {
-		--fontSize: 17px;
+		font-size: 17px;
 	}
 }
 
@@ -33,8 +33,8 @@ form.woocommerce-checkout {
 
 #ship-to-different-address {
 	label {
-		--fontSize: 15px;
-		--fontWeight: 600;
+		font-size: 15px;
+		font-weight: 600;
 	}
 }
 

@@ -14,7 +14,7 @@
 	list-style: none;
 	padding: 0;
 	margin-bottom: 0.5em;
-	border: 1px solid var(--border-color);
+	border: 1px solid var(--theme-border-color);
 
 	@include media-breakpoint-up (md) {
 		display: grid;
@@ -24,11 +24,11 @@
 	li {
 		padding: 1em 1.3em;
 		margin-bottom: -1px;
-		border-bottom: 1px solid var(--border-color);
+		border-bottom: 1px solid var(--theme-border-color);
 
 		@include media-breakpoint-up (md) {
 			&:nth-child(odd) {
-				border-right: 1px solid var(--border-color);
+				border-inline-end: 1px solid var(--theme-border-color);
 			}
 		}
 
@@ -38,22 +38,8 @@
 	}
 }
 
-.woocommerce-order-details,
 .woocommerce-customer-details {
-	margin-top: 2.5em;
-}
-
-.woocommerce-order-details {
-
-	table {
-
-		&:not(:last-of-type) {
-			margin-bottom: 2.5em;
-		}
-	}
-}
-
-.woocommerce-customer-details {
+	margin-top: 2em;
 
 	.col2-set {
 		display: grid;
@@ -72,7 +58,11 @@
 		font-size: 15px;
 		padding: 1.5em;
 		border-radius: 5px;
-		border: 1px dashed var(--border-color);
+		border: 1px dashed var(--theme-border-color);
+
+		p:last-child {
+			margin-bottom: 0;
+		}
 	}
 }
 

@@ -42,6 +42,15 @@ export const gutenbergVariables = {
 		[]
 	),
 
+	...handleBackgroundOptionFor({
+		id: 'popup_background',
+		selector: '.edit-post-visual-editor__content-area > div',
+		responsive: true,
+		addToDescriptors: {
+			important: true,
+		},
+	}),
+
 	...withKeys(
 		[
 			'content_style_source',
@@ -66,7 +75,7 @@ export const gutenbergVariables = {
 		[
 			{
 				selector: `:root`,
-				variable: 'block-max-width',
+				variable: 'theme-block-max-width',
 				extractValue: ({
 					template_subtype,
 					template_editor_width_source = 'small',
@@ -108,10 +117,10 @@ export const gutenbergVariables = {
 					}
 
 					if (page_structure_type === 'type-4') {
-						return 'var(--normal-container-max-width)'
+						return 'var(--theme-normal-container-max-width)'
 					}
 
-					return 'var(--narrow-container-max-width)'
+					return 'var(--theme-narrow-container-max-width)'
 				},
 				fullValue: true,
 				unit: '',
@@ -119,7 +128,7 @@ export const gutenbergVariables = {
 
 			{
 				selector: `:root`,
-				variable: 'block-wide-max-width',
+				variable: 'theme-block-wide-max-width',
 				extractValue: ({
 					template_subtype,
 
@@ -146,10 +155,10 @@ export const gutenbergVariables = {
 					}
 
 					if (page_structure_type === 'type-4') {
-						return 'calc(var(--normal-container-max-width) + var(--wide-offset) * 2)'
+						return 'calc(var(--theme-normal-container-max-width) + var(--theme-wide-offset) * 2)'
 					}
 
-					return 'calc(var(--narrow-container-max-width) + var(--wide-offset) * 2)'
+					return 'calc(var(--theme-narrow-container-max-width) + var(--theme-wide-offset) * 2)'
 				},
 				fullValue: true,
 				unit: '',
@@ -312,7 +321,7 @@ export const gutenbergVariables = {
 			{
 				selector: ':root',
 				type: 'spacing',
-				variable: 'boxed-content-spacing',
+				variable: 'theme-boxed-content-spacing',
 				responsive: true,
 				unit: '',
 				fullValue: true,
@@ -343,7 +352,7 @@ export const gutenbergVariables = {
 			{
 				selector: ':root',
 				type: 'spacing',
-				variable: 'boxed-content-border-radius',
+				variable: 'theme-boxed-content-border-radius',
 				responsive: true,
 
 				fullValue: true,
@@ -374,7 +383,7 @@ export const gutenbergVariables = {
 			{
 				selector: ':root',
 				type: 'border',
-				variable: 'boxed-content-border',
+				variable: 'theme-boxed-content-border',
 				responsive: true,
 
 				fullValue: true,
@@ -405,7 +414,7 @@ export const gutenbergVariables = {
 			{
 				selector: ':root',
 				type: 'box-shadow',
-				variable: 'box-shadow',
+				variable: 'theme-boxed-content-box-shadow',
 				responsive: true,
 				fullValue: true,
 				extractValue: ({

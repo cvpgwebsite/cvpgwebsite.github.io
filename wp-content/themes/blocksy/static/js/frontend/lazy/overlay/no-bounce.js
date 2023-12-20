@@ -38,6 +38,10 @@ export var disable = function (el) {
 						return true
 					}
 
+					if (el.closest('.flexy')) {
+						return true
+					}
+
 					return false
 				},
 			})

@@ -13,20 +13,20 @@
 	.remove {
 		position: absolute;
 		z-index: 2;
-		right: 0;
+		inset-inline-end: 0;
 		width: 11px;
 		height: 11px;
 		line-height: 11px;
-		--icon-size: 11px;
-		--icon-color: currentColor;
-		--linkInitialColor: var(--color);
+		--theme-icon-size: 11px;
+		--theme-icon-color: currentColor;
+		--theme-link-initial-color: var(--theme-text-color);
 	}
 
 	~ .buttons {
 
 		.button {
 			&:hover {
-				color: var(--buttonTextHoverColor);
+				color: var(--theme-button-text-hover-color);
 			}
 		}
 	}
@@ -40,17 +40,18 @@
 	text-align: center;
 	text-transform: uppercase;
 	letter-spacing: 0.05em;
-	margin-top: 20px;
-	margin-bottom: 0;
-	padding-top: 20px;
-	border-top: 1px dashed rgba(0, 0, 0, 0.07);
+	padding-top: var(--mini-cart-items-spacing, 20px);
+	margin-bottom: var(--mini-cart-items-spacing, 20px);
+	border-top: 1px dashed var(--mini-cart-divider-color, rgba(0, 0, 0, 0.07));
 }
 
 .woocommerce-mini-cart__buttons {
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
 	grid-column-gap: 15px;
-	margin: 15px 0 0 0 !important;
+	margin: 0;
+	padding-top: var(--mini-cart-items-spacing, 20px);
+	border-top: 1px dashed var(--mini-cart-divider-color, rgba(0, 0, 0, 0.07));
 
 	> * {
 		grid-column: var(--gridColumn, 1/-1);
@@ -64,5 +65,5 @@
 .woocommerce-mini-cart li,
 .woocommerce-mini-cart__total,
 .woocommerce-mini-cart__empty-message {
-	color: var(--color);
+	color: var(--theme-text-color);
 }

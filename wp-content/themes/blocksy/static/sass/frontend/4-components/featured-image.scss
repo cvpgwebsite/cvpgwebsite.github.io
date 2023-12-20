@@ -5,15 +5,15 @@
 
 	// image alignment
 	&:not(.alignfull) {
-		width: var(--block-width);
+		width: var(--theme-block-width);
 	}
 
 	&:not(.alignwide):not(.alignfull) {
-		max-width: var(--block-max-width);
+		max-width: var(--theme-block-max-width);
 	}
 
 	&.alignwide {
-		max-width: var(--block-wide-max-width);
+		max-width: var(--theme-block-wide-max-width);
 	}
 
 
@@ -29,7 +29,7 @@
 
 	// image figcaption
 	figcaption {
-		--fontSize: 14px;
+		font-size: 14px;
 		text-align: center;
 		margin-top: 5px;
 	}

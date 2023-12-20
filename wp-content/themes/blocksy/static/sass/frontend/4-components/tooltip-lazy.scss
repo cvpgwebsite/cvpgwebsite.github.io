@@ -1,24 +1,18 @@
 [class*="ct-tooltip"] {
 	display: flex;
 	align-items: center;
-	// position: absolute;
 	z-index: 200;
 	width: auto;
 	height: 28px;
 	padding: 0 10px;
 	font-size: 12px;
-	// font-style: italic;
 	font-weight: normal;
-	// letter-spacing: initial;
-	// text-transform: initial;
 	color: #fff;
-	// -webkit-font-smoothing: antialiased;
 	user-select: none;
 	white-space: nowrap;
 	border-radius: 3px;
 	pointer-events: none;
 	background: rgba(54, 63, 66, 1);
-
 	transition: opacity 0.2s cubic-bezier(0.455, 0.03, 0.515, 0.955),
 				transform 0.2s cubic-bezier(0.455, 0.03, 0.515, 0.955),
 				visibility 0.2s cubic-bezier(0.455, 0.03, 0.515, 0.955);

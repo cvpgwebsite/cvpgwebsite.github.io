@@ -1,17 +1,8 @@
 // general styles
-.shop_table {
+.woocommerce-cart-form {
 
-	.quantity {
-		font-size: 14px;
-		--quantity-height: 40px;
-	}
-
-	.quantity[data-type="type-1"] {
-		--quantity-width: 70px;
-	}
-
-	.quantity[data-type="type-2"] {
-		--quantity-width: 100px;
+	.shop_table {
+		margin-bottom: 0;
 	}
 }
 
@@ -20,11 +11,11 @@
 [class*="ct-woocommerce"] .shop_table {
 
 	@include media-breakpoint-down (sm) {
-		--table-padding: 1.3em 0.7em;
+		--theme-table-padding: 1.3em 0.7em;
 	}
 
 	@include media-breakpoint-up (md) {
-		--table-padding: 1.5em 0.7em;
+		--theme-table-padding: 1.5em 0.7em;
 	}
 
 
@@ -55,8 +46,8 @@
 		}
 
 		.price {
-			--fontSize: 15px;
-			--fontWeight: normal;
+			--theme-font-size: 15px;
+			--theme-font-weight: normal;
 			margin-top: 5px;
 			margin-bottom: 0;
 		}
@@ -70,7 +61,7 @@
 	}
 
 	.remove {
-		--icon-size: 12px;
+		--theme-icon-size: 12px;
 
 		&:hover svg {
 			fill: #d83428;

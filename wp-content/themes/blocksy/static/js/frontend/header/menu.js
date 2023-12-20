@@ -144,6 +144,12 @@ const closeSubmenu = (e) => {
 				ct_localizations.expand_submenu
 			)
 		}
+
+		if (e.focusOnIndicator) {
+			childIndicator.focus({
+				focusVisible: true,
+			})
+		}
 	}
 
 	setTimeout(() => {
@@ -164,18 +170,45 @@ export const mountMenuLevel = (menuLevel, args = {}) => {
 		.map((el) => {
 			if (el.classList.contains('ct-mega-menu-custom-width')) {
 				const menu = el.querySelector('.sub-menu')
+
 				const elRect = el.getBoundingClientRect()
 				const menuRect = menu.getBoundingClientRect()
 
-				if (
-					elRect.left + elRect.width / 2 + menuRect.width / 2 >
-					innerWidth
-				) {
-					el.dataset.submenu = 'left'
-				}
+				let centerFits =
+					elRect.left + elRect.width / 2 > menuRect.width / 2 &&
+					innerWidth - (elRect.left + elRect.width / 2) >
+						menuRect.width / 2
 
-				if (elRect.left + elRect.width / 2 - menuRect.width / 2 < 0) {
-					el.dataset.submenu = 'right'
+				if (!centerFits) {
+					const placement = getPreferedPlacementFor(menu)
+
+					let offset = 0
+
+					let edgeOffset = 15
+
+					if (placement === 'right') {
+						offset = `${
+							Math.round(
+								elRect.left -
+									(innerWidth - menuRect.width) +
+									edgeOffset
+							) * -1
+						}px`
+					}
+
+					if (placement === 'left') {
+						offset = `${
+							Math.round(innerWidth - elRect.right - edgeOffset) *
+							-1
+						}px`
+					}
+
+					el.dataset.submenu = placement
+
+					menu.style.setProperty(
+						'--theme-submenu-inline-offset',
+						offset
+					)
 				}
 			}
 
@@ -198,6 +231,7 @@ export const mountMenuLevel = (menuLevel, args = {}) => {
 					if (e.keyCode == 27) {
 						closeSubmenu({
 							target: el.firstElementChild,
+							focusOnIndicator: true,
 						})
 					}
 				})

@@ -13,20 +13,18 @@ label,
 figcaption,
 .wp-block-quote,
 .wp-block-pullquote,
-.price,
 .ct-label,
 .site-title,
 .entry-meta,
-.widget-title,
-.contact-info,
-.ct-item-title,
 .ct-menu-badge,
 .entry-excerpt,
 .ct-post-title,
 .ct-breadcrumbs,
 .ct-header-text,
+.ct-product-sku,
 .author-box-bio,
 .author-box-name,
+.ct-contact-info,
 .site-description,
 .page-description,
 .mobile-menu a,
@@ -35,23 +33,25 @@ figcaption,
 .ct-footer-copyright,
 .ct-language-switcher,
 .entry-summary .price,
+[data-products] .price,
 .woocommerce-tabs .tabs,
-.ct-shortcuts-container,
+.woocommerce-tabs .ct-accordion-heading,
+.ct-shortcuts-bar,
 .ct-widget > *,
-.ct-dynamic-data,
+.ct-dynamic-data-layer,
 .ct-dynamic-filter,
-.ct-search-results a,
+.ct-search-results,
 .tutor-ratings,
 .tutor-meta > *,
 .tutor-course-details-title,
 .tutor-course-details-actions > a,
 .ct-language-switcher ul[data-placement] {
-	font-family: var(--fontFamily);
-	font-size: var(--fontSize);
-	font-weight: var(--fontWeight);
-	font-style: var(--fontStyle, inherit);
-	line-height: var(--lineHeight);
-	letter-spacing: var(--letterSpacing);
-	text-transform: var(--textTransform);
-	text-decoration: var(--textDecoration);
+	font-family: var(--theme-font-family);
+	font-size: var(--theme-font-size);
+	font-weight: var(--theme-font-weight);
+	font-style: var(--theme-font-style, inherit);
+	line-height: var(--theme-line-height);
+	letter-spacing: var(--theme-letter-spacing);
+	text-transform: var(--theme-text-transform);
+	text-decoration: var(--theme-text-decoration);
 }

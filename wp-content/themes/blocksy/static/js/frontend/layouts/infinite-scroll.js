@@ -2,6 +2,24 @@ import InfiniteScroll from 'infinite-scroll'
 import { watchLayoutContainerForReveal } from '../animated-element'
 import ctEvents from 'ct-events'
 
+const generateQuerySelector = (el, initial = '') => {
+	let str = initial
+
+	if (!str) {
+		str = el.tagName
+		str += el.id != '' ? '#' + el.id : ''
+		if (el.classList.length > 0) {
+			str += `.${[...el.classList].join('.')}`
+		}
+	}
+
+	if (el.parentNode.tagName.toLowerCase() === 'body') {
+		return str
+	}
+
+	return generateQuerySelector(el.parentNode) + ' > ' + str
+}
+
 /**
  * Monkey patch imagesLoaded. We are using here another strategy for detecting
  * images loaded event.
@@ -110,16 +128,8 @@ function getAppendSelectorFor(layoutEl) {
 	}
 
 	if (layoutEl.classList.contains('products')) {
-		let layoutIndex = [...layoutEl.parentNode.children].indexOf(layoutEl)
-
-		const hasMoreThanOneProductsList =
-			layoutEl.closest('#main').querySelectorAll('.products').length > 1
-
-		if (hasMoreThanOneProductsList) {
-			return `#main .products:nth-child(${layoutIndex + 1}) > li`
-		}
-
-		return `#main .products > li`
+		const selector = generateQuerySelector(layoutEl, '[data-products]')
+		return `${selector} > li`
 	}
 
 	return `section > .entries > *`

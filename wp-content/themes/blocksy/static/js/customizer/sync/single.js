@@ -36,7 +36,7 @@ watchOptionsWithPrefix({
 				id: 'post_nav_title_visibility',
 			},
 			{
-				selector: '.post-navigation .ct-image-container',
+				selector: '.post-navigation .ct-media-container',
 				id: 'post_nav_thumb_visibility',
 			},
 			{ selector: '.post-navigation', id: 'post_nav_visibility' },
@@ -100,7 +100,7 @@ watchOptionsWithPrefix({
 		if (id === `${prefix}_related_featured_image_ratio`) {
 			Array.from(
 				document.querySelectorAll(
-					'.ct-related-posts .ct-image-container'
+					'.ct-related-posts .ct-media-container'
 				)
 			).map((el) => {
 				setRatioFor(

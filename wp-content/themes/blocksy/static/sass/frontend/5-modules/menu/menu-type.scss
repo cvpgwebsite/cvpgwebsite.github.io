@@ -1,7 +1,5 @@
 // common
 [data-menu] > ul > li {
-	// display: flex;
-	// align-items: center;
 	
 	> a {
 		&:before, &:after {
@@ -11,7 +9,7 @@
 			margin: var(--menu-indicator-margin, 0);
 			height: var(--menu-indicator-height, 2px);
 			opacity: var(--menu-indicator-opacity, 0);
-			background-color: var(--menu-indicator-active-color, var(--paletteColor2));
+			background-color: var(--menu-indicator-active-color, var(--theme-palette-color-2));
 			transition: opacity 0.12s cubic-bezier(0.455, 0.03, 0.515, 0.955),
 						width 0.12s cubic-bezier(0.455, 0.03, 0.515, 0.955),
 						height 0.12s cubic-bezier(0.455, 0.03, 0.515, 0.955),
@@ -68,7 +66,7 @@
 [data-menu*="type-3"] > ul > li {
 	&:hover > a,
 	&[class*="current-menu-"] > a {
-		background-color: var(--menu-indicator-active-color, var(--paletteColor2));
+		background-color: var(--menu-indicator-active-color, var(--theme-palette-color-2));
 	}
 }
 

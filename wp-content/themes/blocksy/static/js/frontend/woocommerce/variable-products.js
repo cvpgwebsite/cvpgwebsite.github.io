@@ -49,7 +49,8 @@ const replaceFirstImage = ({ container, image }) => {
 	const containersToReplace = []
 
 	const selectorsToTry = [
-		'.woocommerce-product-gallery > .ct-image-container',
+		'.woocommerce-product-gallery .ct-product-gallery-container > .ct-media-container',
+		'.woocommerce-product-gallery .ct-stacked-gallery-container > .ct-media-container:first-child',
 		'.woocommerce-product-gallery .flexy-items > *:first-child > *',
 		'.woocommerce-product-gallery .flexy-pills > ol > *:first-child > *',
 	]
@@ -65,6 +66,10 @@ const replaceFirstImage = ({ container, image }) => {
 	containersToReplace.map((imgContainer) => {
 		if (imgContainer.href) {
 			imgContainer.href = image.full_src
+		}
+
+		if (imgContainer.dataset.src) {
+			imgContainer.dataset.src = image.full_src
 		}
 
 		if (imgContainer.dataset.height) {
@@ -366,7 +371,7 @@ export const mount = (el) => {
 			;[...div.firstElementChild.children].map((el, index) => {
 				if (
 					!el.matches(
-						'.flexy-container, .ct-image-container, .ct-before-gallery'
+						'.flexy-container, .ct-product-gallery-container'
 					)
 				) {
 					el.remove()
@@ -374,7 +379,11 @@ export const mount = (el) => {
 			})
 			let didInsert = false
 			;[...currentVariation.children].map((el, index) => {
-				if (el.matches('.flexy-container, .ct-image-container')) {
+				if (
+					el.matches(
+						'.flexy-container, .ct-product-gallery-container'
+					)
+				) {
 					if (!didInsert) {
 						didInsert = true
 						el.insertAdjacentHTML(
@@ -386,7 +395,7 @@ export const mount = (el) => {
 
 				if (
 					el.matches(
-						'.flexy-container, .ct-image-container, .ct-before-gallery'
+						'.flexy-container, .ct-product-gallery-container'
 					)
 				) {
 					el.remove()
@@ -406,7 +415,7 @@ export const mount = (el) => {
 			setTimeout(() => {
 				ctEvents.trigger('blocksy:frontend:init')
 				currentVariation.removeAttribute('data-state')
-			})
+			}, 10)
 		}
 
 		if (variation.blocksy_gallery_html) {

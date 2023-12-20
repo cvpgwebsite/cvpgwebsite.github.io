@@ -18,6 +18,7 @@ const WooColumnsAndRows = ({
 	onChangeFor,
 	values,
 	values: { woocommerce_catalog_columns, woocommerce_catalog_rows },
+	liftedOptionStateDescriptor,
 }) => {
 	const rowsValue = rows_id ? values[rows_id] : woocommerce_catalog_rows
 
@@ -27,6 +28,7 @@ const WooColumnsAndRows = ({
 			{...(device !== 'desktop' ? { 'data-disabled-last': '' } : {})}>
 			<div>
 				<NumberOption
+					liftedOptionStateDescriptor={liftedOptionStateDescriptor}
 					option={{
 						...option,
 						attr: {
@@ -52,6 +54,7 @@ const WooColumnsAndRows = ({
 
 			<div>
 				<NumberOption
+					liftedOptionStateDescriptor={liftedOptionStateDescriptor}
 					option={{
 						min: 1,
 						max: 100,

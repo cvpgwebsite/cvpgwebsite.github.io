@@ -35,7 +35,7 @@ export const menuEntryPoints = [
 		// load: () => new Promise((r) => r({ mount: mountResponsiveHeader })),
 		load: () => import('../header/responsive-desktop-menu'),
 		// onLoad: false,
-		events: ['ct:general:device-change', 'ct:header:render-frame'],
+		events: ['ct:general:device-change'],
 		condition: () => {
 			if (getCurrentScreen() !== 'desktop') {
 				return false

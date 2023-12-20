@@ -1,11 +1,12 @@
 table.shop_table {
-	--table-padding: 1em 0.7em;
-	--table-border-width: 0;
-	--table-font-size: 15px;
+	margin-bottom: 2em;
+	--theme-table-padding: 1em 0.7em;
+	--theme-table-border-width: 0;
+	--theme-table-font-size: 15px;
 
 	tr {
-		--table-border-width: 0 0 1px 0;
-		--table-border-style: dashed;
+		--theme-table-border-width: 0 0 1px 0;
+		--theme-table-border-style: dashed;
 
 		> * {
 
@@ -27,9 +28,9 @@ table.shop_table {
 	thead {
 
 		th {
-			--table-border-width: 0 0 2px 0;
-			--table-border-style: solid;
-			color: var(--headings-color);
+			--theme-table-border-width: 0 0 2px 0;
+			--theme-table-border-style: solid;
+			color: var(--theme-headings-color);
 		}
 	}
 
@@ -42,7 +43,7 @@ table.shop_table {
 
 	a {
 		font-weight: 500;
-		--linkInitialColor: var(--color);
+		--theme-link-initial-color: var(--theme-text-color);
 	}
 
 	ul, ol {
@@ -59,7 +60,7 @@ table.shop_table {
 .woocommerce-cart-form__contents tbody {
 
 	tr:last-child {
-		--table-border-width: 0;
+		--theme-table-border-width: 0;
 	}
 }
 
@@ -67,7 +68,7 @@ table.shop_table {
 // responsive table
 @include media-breakpoint-down (sm) {
 	table.shop_table_responsive {
-		--table-padding: 1em 0;
+		--theme-table-padding: 1em 0;
 
 		thead {
 			display: none;
@@ -105,8 +106,8 @@ table.shop_table {
 			tr:not(:last-child) {
 
 				td:last-child {
-					--table-border-style: solid;
-					--table-border-width: 0 0 2px 0;
+					--theme-table-border-style: solid;
+					--theme-table-border-width: 0 0 2px 0;
 				}
 			}
 		}

@@ -4,12 +4,12 @@
 
 	.entry-title {
 		margin: initial;
-		--linkInitialColor: initial;
+		--theme-link-initial-color: initial;
 	}
 
 	.entry-meta {
-		color: var(--color);
-		--linkInitialColor: var(--color);
+		color: var(--theme-text-color);
+		--theme-link-initial-color: var(--theme-text-color);
 	}
 
 	.ct-ghost {
@@ -19,8 +19,7 @@
 }
 
 .entry-divider {
-	margin-left: calc(var(--card-inner-spacing, 30px) * -1);
-	margin-right: calc(var(--card-inner-spacing, 30px) * -1);
+	margin-inline: calc(var(--card-inner-spacing, 30px) * -1);
 	border-bottom: var(--entry-divider);
 }
 
@@ -45,7 +44,7 @@
 	&[data-layout="classic"] .entry-card {
 		flex-direction: column;
 
-		> .ct-image-container + * {
+		> .ct-media-container + * {
 			margin-top: 10px;
 		}
 	}
@@ -53,33 +52,31 @@
 
 
 // Boxed & Cover card
-[data-cards="boxed"], 
+[data-cards="boxed"],
 [data-cards="cover"] {
 
 	.entry-card {
 		padding: var(--card-inner-spacing, 30px);
 		border: var(--card-border, none);
-		box-shadow: var(--box-shadow);
-		border-radius: var(--borderRadius);
+		box-shadow: var(--theme-box-shadow);
+		border-radius: var(--theme-border-radius);
 	}
 }
 
 // Cover card
 [data-archive="default"][data-cards="cover"] .entry-card {
-	justify-content: var(--vertical-alignment);
 	position: relative;
 	min-height: var(--card-min-height, 400px);
+	justify-content: var(--vertical-alignment);
 
-	.ct-image-container {
+	.ct-media-container {
 		position: absolute;
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		margin-bottom: 0;
+		isolation: isolate;
+        inset: 0;
+		margin: 0;
 	}
 
-	> *:not(.ct-image-container) {
+	> *:not(.ct-media-container) {
 		position: relative;
 		z-index: 1;
 	}
@@ -87,8 +84,7 @@
 
 // Simple card
 [data-archive="default"][data-cards="simple"] {
-	overflow: hidden;
-	
+
 	.entry-card {
 		padding-bottom: var(--grid-columns-gap, 30px);
 		border-bottom: var(--card-border, none);

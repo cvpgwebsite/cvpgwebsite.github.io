@@ -7,7 +7,7 @@
 // solid and padded
 [data-dropdown*='solid'] .sub-menu li,
 [data-dropdown*='padded'] .sub-menu li {
-	
+
 	// a:hover,
 	// &.current-menu-item > a,
 	&:hover > .ct-menu-link,
@@ -34,7 +34,7 @@
 	.sub-menu {
 		--menu-item-radius: 3px;
 		--menu-item-padding: calc(
-			var(--dropdown-items-spacing, 13px) - 7px) 
+			var(--dropdown-items-spacing, 13px) - 7px)
 			calc(var(--dropdown-items-spacing, 13px) - 4px
 		);
 
@@ -46,8 +46,6 @@
 
 	// apply top/bottom margin only to regular dropdowns (not mega menu)
 	> ul > li:not([class*="ct-mega-menu"]) .sub-menu li {
-		// display: flex;
-		// flex-direction: column;
 
 		&:first-child > .ct-menu-link {
 			margin-top: calc(8px + (1 - var(--has-divider)) * 8px);

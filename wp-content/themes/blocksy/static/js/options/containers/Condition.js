@@ -54,7 +54,7 @@ const Condition = ({
 			valueForCondition = Object.keys(conditionToWatch).reduce(
 				(current, key) => ({
 					...current,
-					[key]: wp.customize(key)(),
+					[key.split(':')[0]]: wp.customize(key.split(':')[0])(),
 				}),
 				{}
 			)
@@ -88,6 +88,81 @@ const Condition = ({
 					valueForCondition[singleReplace.key] === singleReplace.from
 				) {
 					valueForCondition[singleReplace.key] = singleReplace.to
+				}
+			})
+		}
+
+		valueForCondition = {
+			...valueForCondition,
+
+			...(window.ct_customizer_localizations
+				? ct_customizer_localizations.conditions_override
+				: {}),
+
+			...(window.ct_localizations
+				? ct_localizations.conditions_override
+				: {}),
+		}
+
+		if (conditionOption.computed_fields) {
+			conditionOption.computed_fields.map((computedField) => {
+				if (
+					computedField === 'woo_single_layout' &&
+					(valueForCondition.product_view_type ===
+						'columns-top-gallery' ||
+						valueForCondition.product_view_type === 'top-gallery')
+				) {
+					valueForCondition[computedField] = [
+						...(valueForCondition.woo_single_split_layout.left ||
+							[]),
+						...(valueForCondition.woo_single_split_layout.right ||
+							[]),
+					]
+				}
+
+				if (computedField === 'has_svg_logo') {
+					const ids = ['custom_logo']
+
+					if (
+						valueForCondition.builderSettings &&
+						valueForCondition.builderSettings
+							.has_transparent_header === 'yes'
+					) {
+						ids.push('transparent_logo')
+					}
+
+					if (
+						valueForCondition.builderSettings &&
+						valueForCondition.builderSettings.has_sticky_header ===
+							'yes'
+					) {
+						ids.push('sticky_logo')
+					}
+
+					const hasSvg = ids.some((id) => {
+						const attachmentIds = Object.values(
+							valueForCondition[id] || {}
+						)
+
+						return attachmentIds.some((attachmentId) => {
+							const attachment = wp.media
+								.attachment(attachmentId)
+								.toJSON()
+
+							if (attachment && attachment.url) {
+								return attachment.url.match(/\.svg$/)
+							}
+
+							wp.media
+								.attachment(attachmentId)
+								.fetch()
+								.then(() => forceUpdate())
+
+							return false
+						})
+					})
+
+					valueForCondition['has_svg_logo'] = hasSvg ? 'yes' : 'no'
 				}
 			})
 		}

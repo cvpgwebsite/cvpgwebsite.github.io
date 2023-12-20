@@ -16,24 +16,39 @@ export const fastOverlayHandleClick = (e, settings) => {
 		return
 	}
 
-	if (settings.openStrategy !== 'skip') {
-		if (settings.container) {
-			settings.container.classList.add('active')
+	const mount = () => {
+		if (settings.openStrategy !== 'skip') {
+			requestAnimationFrame(() => {
+				settings.container.classList.add('active')
+
+				document.body.dataset.panel = `in${
+					settings.container.dataset.behaviour.indexOf('left') > -1
+						? ':left'
+						: settings.container.dataset.behaviour.indexOf(
+								'right'
+						  ) > -1
+						? ':right'
+						: ''
+				}`
+			})
 		}
 
-		document.body.dataset.panel = `in${
-			settings.container.dataset.behaviour.indexOf('left') > -1
-				? ':left'
-				: settings.container.dataset.behaviour.indexOf('right') > -1
-				? ':right'
-				: ''
-		}`
+		if (
+			settings.openStrategy === 'full' ||
+			settings.openStrategy === 'skip'
+		) {
+			import('./lazy/overlay').then(({ handleClick }) => {
+				handleClick(e, settings)
+			})
+		}
 	}
 
-	if (settings.openStrategy === 'full' || settings.openStrategy === 'skip') {
-		import('./lazy/overlay').then(({ handleClick }) => {
-			handleClick(e, settings)
+	if (settings.container.querySelector('.flexy')) {
+		loadStyle(ct_localizations.dynamic_styles.flexy_styles).then(() => {
+			mount()
 		})
+	} else {
+		mount()
 	}
 }
 

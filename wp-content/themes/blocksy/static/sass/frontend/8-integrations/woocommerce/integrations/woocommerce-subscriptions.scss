@@ -1,10 +1,3 @@
-.woocommerce-order-details {
-
-	p.order-again {
-		margin: 20px 0 0 0;
-	}
-}
-
 .woocommerce-MyAccount-content {
 
 	.subscription_details,
@@ -22,4 +15,11 @@
 			margin-bottom: calc(var(--has-content-spacing, 1) * (0.3em + 10px));
 		}
 	}
+}
+
+
+// WooCommerce All Products For Subscriptions - plugin
+ul.wcsatt-options-prompt-radios,
+ul.wcsatt-options.overrides_exist {
+	padding-inline-start: 0;
 }
