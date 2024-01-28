@@ -37,7 +37,7 @@ const TaxonomyRoot = ({ options, input_name, value, tbody, purpose }) => {
 				value={JSON.stringify(
 					Array.isArray(internalValue) ? {} : internalValue
 				)}
-				onChange={() => { }}
+				onChange={() => {}}
 				name={input_name}
 				type="hidden"
 				ref={input}
@@ -91,8 +91,7 @@ export const initTaxonomies = () => {
 		rootEl.insertBefore(tbody, rootEl.querySelector('.submit'))
 		purpose = 'default'
 	} else {
-		tbody = document.createElement('tbody')
-		maybeTable.appendChild(tbody)
+		tbody = maybeTable.querySelector('tbody')
 	}
 
 	render(

@@ -14,7 +14,15 @@ let prefix = getPrefixFor()
 export const getSingleElementsVariables = () => ({
 	...getSingleShareBoxVariables(),
 
-	// Autor Box
+	// featured image
+	[`${prefix}_featured_image_border_radius`]: {
+		selector: applyPrefixFor('.ct-featured-image', prefix),
+		type: 'spacing',
+		variable: 'theme-border-radius',
+		responsive: true,
+	},
+
+	// autor Box
 	[`${prefix}_single_author_box_spacing`]: {
 		selector: applyPrefixFor('.author-box', prefix),
 		variable: 'spacing',
@@ -129,8 +137,9 @@ export const getSingleElementsVariables = () => ({
 		responsive: true,
 	},
 
+	// related posts
 	[`${prefix}_related_label_alignment`]: {
-		selector: applyPrefixFor('.ct-related-posts .ct-block-title', prefix),
+		selector: applyPrefixFor('.ct-related-posts .ct-module-title', prefix),
 		variable: 'horizontal-alignment',
 		responsive: true,
 		unit: '',
@@ -150,29 +159,29 @@ export const getSingleElementsVariables = () => ({
 
 	...typographyOption({
 		id: `${prefix}_related_posts_label_font`,
-		selector: applyPrefixFor('.ct-related-posts .ct-block-title', prefix),
+		selector: applyPrefixFor('.ct-related-posts .ct-module-title', prefix),
 	}),
 
 	[`${prefix}_related_posts_label_color`]: {
-		selector: applyPrefixFor('.ct-related-posts .ct-block-title', prefix),
+		selector: applyPrefixFor('.ct-related-posts .ct-module-title', prefix),
 		variable: 'theme-heading-color',
 		type: 'color:default',
 	},
 
 	...typographyOption({
 		id: `${prefix}_related_posts_link_font`,
-		selector: applyPrefixFor('.related-entry-title', prefix),
+		selector: applyPrefixFor('.ct-related-posts .related-entry-title', prefix),
 	}),
 
 	[`${prefix}_related_posts_link_color`]: [
 		{
-			selector: applyPrefixFor('.related-entry-title', prefix),
+			selector: applyPrefixFor('.ct-related-posts .related-entry-title', prefix),
 			variable: 'theme-heading-color',
 			type: 'color:default',
 		},
 
 		{
-			selector: applyPrefixFor('.related-entry-title', prefix),
+			selector: applyPrefixFor('.ct-related-posts .related-entry-title', prefix),
 			variable: 'theme-link-hover-color',
 			type: 'color:hover',
 		},
@@ -267,7 +276,7 @@ export const getSingleElementsVariables = () => ({
 		},
 	],
 
-	// Posts Navigation
+	// posts navigation
 	[`${prefix}_post_nav_spacing`]: {
 		selector: applyPrefixFor('.post-navigation', prefix),
 		variable: 'margin',

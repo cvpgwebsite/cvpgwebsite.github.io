@@ -15,10 +15,10 @@
 
 [data-behaviour*='right-side'] .ct-panel-inner {
 	align-self: flex-end;
-	transform: translate3d(20%, 0, 0);
+	transform: translate3d(var(--theme-panel-reveal-right, 20%), 0, 0);
 }
 
 [data-behaviour*='left-side'] .ct-panel-inner {
 	align-self: flex-start;
-	transform: translate3d(-20%, 0, 0);
+	transform: translate3d(var(--theme-panel-reveal-left, -20%), 0, 0);
 }

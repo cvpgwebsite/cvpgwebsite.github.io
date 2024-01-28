@@ -108,7 +108,7 @@ let callbacks = {}
 
 const cache = {}
 
-const fetchDataFor = (postId, cb) => {
+const fetchDataFor = (postId, postType, cb) => {
 	if (cache[postId]) {
 		cb(cache[postId])
 		return
@@ -134,7 +134,11 @@ const fetchDataFor = (postId, cb) => {
 			.then(({ success, data }) => {
 				const newData = {
 					...data,
-					fields: [wpFields(), ...wooFields(), ...data.fields],
+					fields: [
+						wpFields(),
+						...(postType === 'product' ? wooFields() : []),
+						...data.fields,
+					],
 				}
 
 				cache[postId] = newData
@@ -150,14 +154,14 @@ const fetchDataFor = (postId, cb) => {
 
 const useDynamicDataDescriptor = ({ postId, postType }) => {
 	const [fieldsDescriptor, setFieldsDescriptor] = useState({
-		fields: [wpFields(), ...wooFields()],
+		fields: [wpFields(), ...(postType === 'product' ? wooFields() : [])],
 	})
 
 	useEffect(() => {
-		fetchDataFor(postId, (data) => {
+		fetchDataFor(postId, postType, (data) => {
 			setFieldsDescriptor(data)
 		})
-	}, [postId])
+	}, [postId, postType])
 
 	const taxonomies = useTaxonomies(postType)
 

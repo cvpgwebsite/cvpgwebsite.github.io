@@ -33,8 +33,6 @@
 .ct-dynamic-data {
 
 	a {
-		pointer-events: none;
-		text-decoration: none;
 		--theme-link-initial-color: initial;
 	}
 
@@ -61,6 +59,7 @@
 .ct-dynamic-media {
 	overflow: hidden;
 	position: relative;
+	box-sizing: border-box;
 
 	img {
 		width: 100%;

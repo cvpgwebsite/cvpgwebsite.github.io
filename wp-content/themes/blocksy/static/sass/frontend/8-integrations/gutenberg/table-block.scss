@@ -3,7 +3,7 @@
 	table {
 
 		&:not(.has-border-color) {
-			td, th {
+			thead, tfoot, td, th {
 				border-color: var(--theme-table-border-color, var(--theme-border-color));
 			}
 		}
@@ -11,9 +11,5 @@
 
 	&.is-style-stripes {
 		border: 0;
-
-		tbody tr:nth-child(odd) {
-			background-color: var(--theme-palette-color-6);
-		}
 	}
 }

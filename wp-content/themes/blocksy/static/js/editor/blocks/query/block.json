@@ -149,6 +149,7 @@
 		"limit": "limit",
 		"order": "order",
 		"orderby": "orderby",
+		"sticky_posts": "sticky_posts",
 		"orderby_custom": "orderby_custom",
 		"offset": "offset",
 		"has_pagination": "has_pagination",

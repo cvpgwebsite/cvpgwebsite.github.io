@@ -182,7 +182,7 @@ const DynamicDataInspectorControls = ({
 									avatar_size: newSize,
 								})
 							}
-							min={30}
+							min={5}
 							max={500}
 							initialPosition={attributes?.avatar_size}
 							value={attributes?.avatar_size}

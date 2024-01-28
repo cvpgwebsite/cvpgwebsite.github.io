@@ -20,7 +20,7 @@ const BlocksyNumberOption = ({
 		markAsAutoFor && markAsAutoFor.indexOf(device) > -1 ? 'auto' : value
 
 	const min = !option.min && option.min !== 0 ? -Infinity : option.min
-	const max = !option.max && option.max !== 0 ? -Infinity : option.max
+	const max = !option.max && option.max !== 0 ? Infinity : option.max
 
 	return (
 		<div

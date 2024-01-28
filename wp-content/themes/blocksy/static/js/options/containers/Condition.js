@@ -5,6 +5,8 @@ import { useDeviceManagerState } from '../../customizer/components/useDeviceMana
 
 import useForceUpdate from './use-force-update'
 
+const pendingRequests = []
+
 const Condition = ({
 	renderingChunk,
 	value,
@@ -140,9 +142,13 @@ const Condition = ({
 					}
 
 					const hasSvg = ids.some((id) => {
-						const attachmentIds = Object.values(
-							valueForCondition[id] || {}
-						)
+						const attachmentIds = [
+							...new Set(
+								Object.values(
+									valueForCondition[id] || {}
+								).filter((value) => typeof value === 'number')
+							),
+						]
 
 						return attachmentIds.some((attachmentId) => {
 							const attachment = wp.media
@@ -153,10 +159,25 @@ const Condition = ({
 								return attachment.url.match(/\.svg$/)
 							}
 
-							wp.media
-								.attachment(attachmentId)
-								.fetch()
-								.then(() => forceUpdate())
+							if (pendingRequests.includes(attachmentId)) {
+								return false
+							}
+
+							if (!pendingRequests.includes(attachmentId)) {
+								pendingRequests.push(attachmentId)
+
+								wp.media
+									.attachment(attachmentId)
+									.fetch()
+									.then(() => {
+										pendingRequests =
+											pendingRequests.filter(
+												(id) => id !== attachmentId
+											)
+
+										forceUpdate()
+									})
+							}
 
 							return false
 						})

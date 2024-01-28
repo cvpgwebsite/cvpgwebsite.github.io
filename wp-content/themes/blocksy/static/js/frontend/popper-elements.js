@@ -1,25 +1,23 @@
-let mounted = false
+import { loadStyle } from '../helpers'
 
-export const mount = (reference) => {
-	if (mounted) {
-		return
-	}
-
-	mounted = true
-
+const mountPopper = (reference) => {
 	if (!reference.nextElementSibling) {
 		return
 	}
 
-	const target = reference.nextElementSibling
+	if (reference.nextElementSibling.popperMounted) {
+		return
+	}
 
-	let initialPlacement =
-		reference.getBoundingClientRect().left > innerWidth / 2
-			? 'left'
-			: 'right'
+	reference.nextElementSibling.popperMounted = true
+
+	const target = reference.nextElementSibling
 
 	const referenceRect = reference.getBoundingClientRect()
 	const targetRect = target.getBoundingClientRect()
+
+	let initialPlacement =
+		referenceRect.left > innerWidth / 2 ? 'left' : 'right'
 
 	let placement = initialPlacement
 
@@ -57,4 +55,15 @@ export const mount = (reference) => {
 	}
 
 	target.dataset.placement = placement
+}
+
+export const mount = (reference) => {
+	Promise.all(
+		ct_localizations.dynamic_styles_selectors
+			.filter(
+				(styleDescriptor) =>
+					!!reference.closest(styleDescriptor.selector)
+			)
+			.map(({ url }) => loadStyle(url))
+	).then(() => mountPopper(reference))
 }
